@@ -1,0 +1,29 @@
+<nav class="nav m-5 bg-dark">
+  <a class="nav-link" aria-current="page" href="/home">Home</a>
+  <a class="nav-link" aria-current="page" href="/chat">Chat</a>
+  <a class="nav-link" aria-current="page" href="/realtimeproducts">Real Time Products</a>
+  <a class="nav-link" aria-current="page" href="/cart">Carrito</a>
+  <a class="nav-link" aria-current="page" href="/profile">Perfil de Usuario</a>
+</nav>
+<div id="admin" hidden>{{user}}</div>
+
+<h1 class="m-2">
+  Productos en tiempo real:
+</h1>
+<div class="container mt-5">
+  <table class="table table-responsive table-bordered table-dark table-striped">
+    <thead>
+      <tr>
+        <th class="text-center">Marca</th>
+        <th class="text-center">Modelo</th>
+        <th class="text-center">Precio</th>
+        <th class="text-center">Imagen</th>
+        <th class="text-center">Unidades Disponibles</th>
+      </tr>
+    </thead>
+    <tbody class="text-center" id="table">
+    </tbody>
+  </table>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realTimeProducts.js"></script>

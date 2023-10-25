@@ -1,0 +1,167 @@
+<nav class="nav m-5 bg-dark">
+  <a class="nav-link" aria-current="page" href="/home">
+    Home
+  </a>
+  <a class="nav-link" aria-current="page" href="/chat">
+    Chat
+  </a>
+  <a class="nav-link" aria-current="page" href="/realtimeproducts">
+    Real Time Products
+  </a>
+  <a class="nav-link" aria-current="page" href="/profile">
+    Perfil de Usuario
+  </a>
+</nav>
+<h1 class="text-primary text-center">
+  Productos del Carrito
+</h1>
+<div class="container text-center">
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">
+          Titulo
+        </th>
+        <th scope="col">
+          Descripcion
+        </th>
+        <th scope="col">
+          Precio
+        </th>
+        <th scope="col">
+          Cantidad
+        </th>
+        <th scope="col">
+          Eliminar
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each cartProducts}}
+      <tr>
+        
+          <td>
+            {{this.product.brand}}
+          </td>
+          <td>
+            {{this.product.model}}
+          </td>
+          <td>
+            ${{this.product.price}}
+          </td>
+          <td>
+            {{this.quantity}}
+          </td>
+          <td>
+            <button
+              id="{{this.product._id}}"
+              name="{{../cartId}}"
+              class="btn btn-danger"
+              onclick="deleteProduct(this.id,this.name)"
+            >
+              Eliminar
+            </button>
+          </td>
+        
+      </tr>
+      {{/each}}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2" class="table-active fw-bold">Total</td>
+        <td colspan="2">$ {{totalPrice}}</td>
+        <td><button id="{{cartId}}" class="btn btn-success" onclick="purchase(this.id)"> Pagar </button></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+{{!-- **Modal de Tiket** --}}
+<div>
+  <div id="myModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Ticket de la Compra</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row align-items-start">
+            <div class="col">
+              <h6 id="code"></h6>
+              <h6 id="purchase_datetime"></h6>
+              <h6 id="purchaser"></h6>
+              <h6>Productos:</h6>
+              <h6 id="products"></h6>
+              <h6 id="amount"></h6>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="redirect()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script>
+  function redirect(){
+    window.location.href = "/home";
+  }
+  function showModal(ticket){
+    const myModal = new bootstrap.Modal(document.getElementById('myModal'))
+    let code = document.getElementById("code").innerHTML = `Numero: ${ticket.code}` 
+    let purchase_datetime = document.getElementById("purchase_datetime").innerHTML = `Fecha: ${ticket.purchase_datetime}`
+    let purchaser = document.getElementById("purchaser").innerHTML = `Comprador: ${ticket.purchaser}` 
+    let products = document.getElementById("products")
+    let amount = document.getElementById("amount").innerHTML = `Total: ${ticket.amount}` 
+    console.log(ticket)
+    console.log(ticket.products)
+    myModal.show()
+  }
+  async function deleteProduct(id, cartId) {
+    axios.delete(`/api/carts/${cartId}/products/${id}`, {
+      
+    })
+    .then(response => {
+      Swal.fire({
+                        position: 'center',
+                        toast: true,
+                        icon: 'success',
+                        title: 'Productro Eliminado Correctamente',
+                        showConfirmButton: false,
+                        timer: 1500
+                        })
+      window.location.reload(2);
+    })
+    .catch(error => {
+      console.log(error)
+    })
+    
+  }
+
+  async function purchase(cid){
+    axios.post(`/api/carts//${cid}/purchase`,{
+
+    })
+    .then(response => {
+            Swal.fire({
+                        position: 'center',
+                        toast: true,
+                        icon: 'success',
+                        title: 'Compra Realizada con exito',
+                        showConfirmButton: false,
+                        timer: 1500
+                        })
+      console.log(response.data.payload.ticket)
+      let ticket = response.data.payload.ticket
+      
+      showModal(ticket)
+      
+      {{!-- window.location.reload(2); --}}
+    })
+  }
+</script>

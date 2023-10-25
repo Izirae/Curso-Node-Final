@@ -1,0 +1,51 @@
+<div>
+  <nav class="nav m-5 bg-dark">
+    <a class="nav-link" aria-current="page" href="/home">
+      Home
+    </a>
+    <a class="nav-link" aria-current="page" href="/chat">
+      Chat
+    </a>
+    <a class="nav-link" aria-current="page" href="/cart/{{user.cart}}">
+      Carrito
+    </a>
+    <a class="nav-link" aria-current="page" href="/realtimeproducts">
+      Real Time Products
+    </a>
+    <a class="nav-link" aria-current="page" href="/profile">
+      Perfil de Usuario
+    </a>
+  </nav>
+</div>
+<div>
+  <h1 class="text-center">
+    {{title}}
+  </h1>
+</div>
+<div class="container">
+  <table class="table table-responsive table-bordered table-dark table-striped">
+    <thead>
+      <tr>
+        <th scope="col" class="text-center">
+          #
+        </th>
+        <th scope="col" class="text-center">
+          Nombre
+        </th>
+        <th scope="col" class="text-center">
+          Email
+        </th>
+        <th scope="col" class="text-center">
+          Rol
+        </th>
+        <th scope="col" class="text-center">
+          Acciones
+        </th>
+      </tr>
+    </thead>
+    <tbody id="tbody" class="table-group-divider">
+    </tbody>
+  </table>
+</div>
+
+<script src="/js/admin.js"></script>
