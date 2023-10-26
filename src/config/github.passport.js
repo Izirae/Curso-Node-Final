@@ -14,7 +14,7 @@ const initializePassportGithub = () => {
       {
         clientID: config.GITHUB_CLIENT_ID,
         clientSecret: config.GITHUB_CLIENT_SECRET,
-        callbackURL: "https://curso-node-final-production.up.railway.app/api/sessions/githubcallback",
+        callbackURL: "/api/sessions/githubcallback",
       },
       async (accessToken, refreshToken, profile, done) => {
         let user = await userService.findUser(profile._json.email);
@@ -22,7 +22,7 @@ const initializePassportGithub = () => {
         if (!user) {
           let newUser = {
             first_name: profile._json.name,
-            last_name: "test-lastname",
+            last_name: "",
             email: profile._json.email,
             age: 0,
             password: "",
