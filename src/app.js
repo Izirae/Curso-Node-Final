@@ -117,4 +117,4 @@ socketServer.on("connection", async (socket) => {
   });
 });
 
-app.use(errorMiddleware);
+// app.use(errorMiddleware);

@@ -102,60 +102,79 @@
 </div>
 </div>
 <script>
-  function redirect(){
-    window.location.href = "/home";
-  }
-  function showModal(ticket){
-    const myModal = new bootstrap.Modal(document.getElementById('myModal'))
-    let code = document.getElementById("code").innerHTML = `Numero: ${ticket.code}` 
-    let purchase_datetime = document.getElementById("purchase_datetime").innerHTML = `Fecha: ${ticket.purchase_datetime}`
-    let purchaser = document.getElementById("purchaser").innerHTML = `Comprador: ${ticket.purchaser}` 
-    let products = document.getElementById("products")
-    let amount = document.getElementById("amount").innerHTML = `Total: ${ticket.amount}` 
-    console.log(ticket)
-    console.log(ticket.products)
-    myModal.show()
-  }
-  async function deleteProduct(id, cartId) {
-    axios.delete(`/api/carts/${cartId}/products/${id}`, {
-      
-    })
-    .then(response => {
-      Swal.fire({
-                        position: 'center',
-                        toast: true,
-                        icon: 'success',
-                        title: 'Productro Eliminado Correctamente',
-                        showConfirmButton: false,
-                        timer: 1500
-                        })
-      window.location.reload(2);
-    })
-    .catch(error => {
-      console.log(error)
-    })
-    
-  }
+    function redirect() {
+      window.location.href = "/home";
+    }
+    function showModal(ticket) {
+      const myModal = new bootstrap.Modal(document.getElementById('myModal'))
+      let code = document.getElementById("code").innerHTML = `Numero: ${ticket.code}`
+      let purchase_datetime = document.getElementById("purchase_datetime").innerHTML = `Fecha: ${ticket.purchase_datetime}`
+      let purchaser = document.getElementById("purchaser").innerHTML = `Comprador: ${ticket.purchaser}`
+      let amount = document.getElementById("amount").innerHTML = `Total: ${ticket.amount}`
 
-  async function purchase(cid){
-    axios.post(`/api/carts//${cid}/purchase`,{
+      myModal.show()
+    }
+    async function deleteProduct(id, cartId) {
+      axios.delete(`/api/carts/${cartId}/products/${id}`, {
 
-    })
-    .then(response => {
-            Swal.fire({
-                        position: 'center',
-                        toast: true,
-                        icon: 'success',
-                        title: 'Compra Realizada con exito',
-                        showConfirmButton: false,
-                        timer: 1500
-                        })
-      console.log(response.data.payload.ticket)
-      let ticket = response.data.payload.ticket
-      
-      showModal(ticket)
-      
-      {{!-- window.location.reload(2); --}}
-    })
-  }
+      })
+        .then(response => {
+          Swal.fire({
+            position: 'center',
+            toast: true,
+            icon: 'success',
+            title: 'Producto Eliminado Correctamente',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          window.location.reload(2);
+        })
+        .catch(error => {
+          console.log(error)
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            toast: true,
+            title: `${error.response.data.details}`,
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 3000
+          })
+        })
+
+    }
+
+    async function purchase(cid) {
+      console.log(cid)
+      axios.post(`/api/carts//${cid}/purchase`, {
+
+      })
+        .then(response => {
+          Swal.fire({
+            position: 'center',
+            toast: true,
+            icon: 'success',
+            title: 'Compra Realizada con exito',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          console.log(response)
+          console.log(response.data.payload.ticket)
+          let ticket = response.data.payload.ticket
+
+          showModal(ticket)
+
+        }).catch(error => {
+          console.log("esto", error)
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            toast: true,
+            title: `${error.response.data.details}`,
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 3000
+          })
+        })
+    }
 </script>
