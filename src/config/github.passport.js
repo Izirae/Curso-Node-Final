@@ -14,7 +14,7 @@ const initializePassportGithub = () => {
       {
         clientID: config.GITHUB_CLIENT_ID,
         clientSecret: config.GITHUB_CLIENT_SECRET,
-        callbackURL: "/api/sessions/githubcallback",
+        callbackURL: config.GITHUB_CALLBACK_URL,
       },
       async (accessToken, refreshToken, profile, done) => {
         let user = await userService.findUser(profile._json.email);
