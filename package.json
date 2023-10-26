@@ -6,7 +6,7 @@
   "main": "Product.js",
   "scripts": {
     "dev": "nodemon src/App.js",
-    "start": "node src/App.js"
+    "start": "node ./src/App.js"
   },
   "keywords": [],
   "author": "",
