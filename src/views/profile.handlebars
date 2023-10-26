@@ -64,7 +64,7 @@
   let logoutButton = document.getElementById("logout-btn")
 
   logoutButton.addEventListener("click", (evt) => {
-    fetch('http://localhost:8080/api/sessions/logout', {method: 'post'})
+    fetch('/api/sessions/logout', {method: 'post'})
     .then( res => {
       return window.location.replace('/login')
     })

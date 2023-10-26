@@ -102,7 +102,7 @@ const requestResetPassword = async (req, res) => {
       `
       <div style='color: blue'>
         <h1> Restaura tu email haciendo click en el siguiente link </h1>
-        http://localhost:8080/resetPassword?token=${token}
+        http://curso-node-final-production.up.railway.app/resetPassword?token=${token}
       </div>
       `
     );

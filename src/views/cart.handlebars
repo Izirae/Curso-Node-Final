@@ -16,43 +16,37 @@
   Productos del Carrito
 </h1>
 <div class="container text-center">
-  <table class="table table-striped table-hover table-bordered">
+  <table class="table table-responsive table-bordered table-dark table-striped">
     <thead>
       <tr>
-        <th scope="col">
-          Titulo
-        </th>
-        <th scope="col">
-          Descripcion
-        </th>
-        <th scope="col">
-          Precio
-        </th>
-        <th scope="col">
-          Cantidad
-        </th>
-        <th scope="col">
-          Eliminar
-        </th>
+          <th scope="col" class="text-center">Marca</th>
+          <th scope="col" class="text-center">Modelo</th>
+          <th scope="col" class="text-center">Imagen</th>
+          <th scope="col" class="text-center">Precio</th>
+          <th scope="col" class="text-center">Cantidad</th>
+          <th scope="col" class="text-center">Eliminar</th>
       </tr>
     </thead>
     <tbody>
       {{#each cartProducts}}
       <tr>
         
-          <td>
+          <td class="text-center pt-5">
             {{this.product.brand}}
           </td>
-          <td>
+          <td class="text-center pt-5">
             {{this.product.model}}
           </td>
-          <td>
+          <td class="text-center">
+            <img style="max-width: 200px;" src="{{this.product.image}}" />
+          </td>
+          <td class="text-center pt-5">
             ${{this.product.price}}
           </td>
-          <td>
+          <td class="text-center pt-5">
             {{this.quantity}}
           </td>
-          <td>
+          <td class="text-center pt-5">
             <button
               id="{{this.product._id}}"
               name="{{../cartId}}"
@@ -68,9 +62,9 @@
     </tbody>
     <tfoot>
       <tr>
-        <td colspan="2" class="table-active fw-bold">Total</td>
-        <td colspan="2">$ {{totalPrice}}</td>
-        <td><button id="{{cartId}}" class="btn btn-success" onclick="purchase(this.id)"> Pagar </button></td>
+        <td colspan="2" class="table-active fw-bold text-center py-5">Total</td>
+        <td colspan="2" class="text-center py-5">$ {{totalPrice}}</td>
+        <td class="text-center py-5"><button id="{{cartId}}" class="btn btn-success" onclick="purchase(this.id)"> Pagar </button></td>
       </tr>
     </tfoot>
   </table>
